@@ -9,6 +9,7 @@ require("hardhat-gas-reporter");
 require("solidity-coverage");
 require("hardhat-deploy");
 
+// https://hardhat.org/hardhat-runner/plugins - can search useful plugins that we want to install and use in hardhat
 /** @type import('hardhat/config').HardhatUserConfig */
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
@@ -21,9 +22,9 @@ module.exports = {
     sepolia: {
         url: SEPOLIA_RPC_URL, // the testnet rpc url, get from alchemy
         accounts: [PRIVATE_KEY],
-        chainId: 11155111, // put the testnet chainId
+        chainId: 11155111, // put the testnet chainId, every EVM based network have it own chainId
     },
-    // this localhost hardhat network, no need to specify account
+    // this localhost Ganache network, no need to specify account
     localhost: {
         url: "http://127.0.0.1:8545/",
         chainId : 31337, 
