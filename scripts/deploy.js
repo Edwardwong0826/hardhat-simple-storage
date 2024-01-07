@@ -6,18 +6,30 @@
 // global scope, and execute the script.
 
 // script and task both can do the same things, can interact,deploy with smart contracts and do anything
-// just that task run at npx hardhat task
-const { ethers, run, network } = require("hardhat");
+// just that task run at npx hardhat task\
+
+//const { ethers, run, network } = require("hardhat"); // hardhat-toolbox 2.0.0 / ethers 5 use this
+const hre = require("hardhat"); //  hardhat-toolbox 4.0.0 / ethers 6 use this
 
 async function main() {
 
-  const simpleStorageFactory = await hre.ethers.getContractFactory("SimpleStorage");
-  
-  console.log("Deploying contract...");
-  const simpleStorage = await simpleStorageFactory.deploy();
-  await simpleStorage.deployed();
+  // hardhat-toolbox update to 4.0.0 will use ethers 6
+  // while hardhat-toolbox 2.0.0 use ethers 5 
 
-  console.log("Deploying contract to : " + simpleStorage.address);
+  // ethers 6 use - waitForDeployment(), target()
+  // ethers 5 use - deployed(), address()
+
+  //const simpleStorageFactory = await hre.ethers.getContractFactory("SimpleStorage");
+  const simpleStorage = await hre.ethers.deployContract("SimpleStorage", [], {});
+
+  console.log("Deploying contract...");
+
+  //const simpleStorage = await simpleStorageFactory.deploy();
+  //await simpleStorage.deployed();
+  await simpleStorage.waitForDeployment();
+
+  //console.log("Deploying contract to : " + simpleStorage.address);
+  console.log("Deploying contract to : " + simpleStorage.target);
 
   const network = await hre.network.config.chainId;
 
@@ -26,8 +38,9 @@ async function main() {
 
   if(network === 11155111 && process.env.ETHERSCAN_API_KEY){
     console.log("Waiting for block transactions...")
-    await simpleStorage.deployTransaction.wait(3); // this means wait 6 block 
-    verify(simpleStorage.address, []);
+    await simpleStorage.deploymentTransaction().wait(3);
+    //await simpleStorage.deployTransaction.wait(3); // this means wait 6 block 
+    verify(simpleStorage.target, []);
   }
 
   const currentValue = await simpleStorage.retrieve();
@@ -38,11 +51,12 @@ async function main() {
   console.log("Updated value is: " + updatedValue);
 }
 
+// npx hardhat test will run and execute below function to do contract verifications
 //async function verify(contractAddress, args) {
 const verify = async (contractAddress, args) => {
     console.log("Verifying contract...")
     try {
-      await run("verify:verify", {
+      await hre.run("verify:verify", {
         address: contractAddress,
         constructorArguments: args,
       })

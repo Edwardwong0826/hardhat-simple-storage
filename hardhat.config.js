@@ -1,19 +1,26 @@
 require("dotenv").config();
 require("@nomicfoundation/hardhat-toolbox");
-//require("@nomiclabs/hardhat-waffle"); - when import will got conflict error with other package
-//require("@nomicfoundation/hardhat-verify"); - when import will hit error, use below etherscan 
-require("@nomiclabs/hardhat-etherscan");
-require("@nomiclabs/hardhat-ethers");
-require("./tasks/block-number");  // this is customer task we defind and export in tasks folder, so that display in available tasks when - npx hardhat
+//require("@nomiclabs/hardhat-etherscan");
+require("@nomicfoundation/hardhat-verify");
+require("@nomicfoundation/hardhat-ethers");
+require("./tasks/block-number"); // this is customer task we defind and export in tasks folder, so that display in available tasks when - npx hardhat
 require("hardhat-gas-reporter");
 require("solidity-coverage");
 require("hardhat-deploy");
+
+// when we install and use @nomicfoundation/hardhat-toolbox, we can remove reduntant imports or keep the imports
+// @nomicfoundation/hardhat-ethers
+// @nomicfoundation/hardhat-verify
+// hardhat-gas-reporter
+// solidity-coverage
+// @typechain/hardhat
 
 /** @type import('hardhat/config').HardhatUserConfig */
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY;
+
 module.exports = {
   // defaultNetwork: "hardhat" // this is fake default hardhat network running online, but is not the localhost like ganache
   // when we run - npx hardhat run scripts/deploy.js on default hardhat network, is only lives the duration on this command
