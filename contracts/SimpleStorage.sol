@@ -4,6 +4,8 @@ pragma solidity 0.8.19;
 // EVM, Ethereum Virtual Machine
 // Avalance, Fantom, Polygon
 
+// hardhat is a more like 
+
 // contract similiar like a class in other programming language
 contract SimpleStorage {
 
