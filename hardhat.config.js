@@ -15,7 +15,8 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY;
 module.exports = {
-  // defaultNetwork: "hardhat" // this is fake default hardhat network running online
+  // defaultNetwork: "hardhat" // this is fake default hardhat network running online, but is not the localhost like ganache
+  // when we run - npx hardhat run scripts/deploy.js on default hardhat network, is only lives the duration on this command
   defaultNetwork: "hardhat",
   networks:{
     sepolia: {
@@ -23,7 +24,8 @@ module.exports = {
         accounts: [PRIVATE_KEY],
         chainId: 11155111, // put the testnet chainId
     },
-    // this localhost hardhat network, no need to specify account
+    // this is localhost network, no need to specify account, because hardhat will automatically place in
+    // npx hardhat node - run this command to launch localhost network, and copy the JSON-RPC URL put into here
     localhost: {
         url: "http://127.0.0.1:8545/",
         chainId : 31337, 
