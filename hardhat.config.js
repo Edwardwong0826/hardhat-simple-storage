@@ -42,6 +42,7 @@ module.exports = {
     apiKey: ETHERSCAN_API_KEY,
   },
   gasReporter:{
+    // npx hardhat test, when run test it will automatically run gas reporter and output as txt file
     enabled: true,
     outputFile: "gas-report.txt",
     noColors: true,
