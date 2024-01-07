@@ -4,6 +4,9 @@
 // You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
+
+// script and task both can do the same things, can interact,deploy with smart contracts and do anything
+// just that task run at npx hardhat task
 const { ethers, run, network } = require("hardhat");
 
 async function main() {

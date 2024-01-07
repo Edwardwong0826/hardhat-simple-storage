@@ -4,7 +4,7 @@ require("@nomicfoundation/hardhat-toolbox");
 //require("@nomicfoundation/hardhat-verify"); - when import will hit error, use below etherscan 
 require("@nomiclabs/hardhat-etherscan");
 require("@nomiclabs/hardhat-ethers");
-require("./tasks/block-number");
+require("./tasks/block-number");  // this is customer task we defind and export in tasks folder, so that display in available tasks when - npx hardhat
 require("hardhat-gas-reporter");
 require("solidity-coverage");
 require("hardhat-deploy");
